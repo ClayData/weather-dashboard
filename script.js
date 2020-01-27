@@ -20,7 +20,7 @@ $(".btn").on("click", function(){
         $("#jumbo-temp").text("Temp: " + JSON.stringify(response.main.temp))
         $("#jumbo-humid").text("Humidity: " + JSON.stringify(response.main.humidity))
         $("#jumbo-wind").text("Wind Speed: " + JSON.stringify(response.wind.speed))
-        
+
       })
 
 
@@ -29,10 +29,15 @@ $(".btn").on("click", function(){
         method: "GET"
       }).then(function(response){
         console.log(response);
-
+        console.log(response.list[5].main.temp);
+        var results = response.list;
+        var resultsArray = [(results[5].main), (results[13].main), (results[21].main), (results[29].main), (results[37].main)]
+        
+        forecastTemp(resultsArray);
+        forecastHumid(resultsArray);
       })
 
-      $("#jumbo-city").text(givenCity + " " + m);
+      $("#jumbo-city").text(givenCity + " " + moment().format('L'));
       $("#date1").text(moment().add(1, 'days').format('L'));
       $("#date2").text(moment().add(2, 'days').format('L'));
       $("#date3").text(moment().add(3, 'days').format('L'));
@@ -41,7 +46,23 @@ $(".btn").on("click", function(){
    
 });
 
+var tempIdArray = [$("#temp1"), $("#temp2"), $("#temp3"), $("#temp4"), $("#temp5")]
+var humidIdArray = [$("#humid1"), $("#humid2"), $("#humid3"), $("#humid4"), $("#humid5"),]
 
+function forecastTemp (arr) {
+
+        for(var i = 0; i < arr.length; i++){
+            tempIdArray[i].text(arr[i].temp)
+        }
+
+    }
+
+function forecastHumid (arr) {
+    
+    for (var i = 0; i < arr.length; i++) {
+        humidIdArray[i].text(arr[i].humidity);
+    }
+}    
 
 
 });
