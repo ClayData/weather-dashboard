@@ -25,6 +25,8 @@ $(".btn").on("click", function(){
 
         var resultEmoji = response.weather[0].main;
         $("#jumbo-city").text(givenCity + " " + moment().format('L') + " " + weatherEmoji(resultEmoji));
+
+        cityList(givenCity)
       })
 
 function weatherEmoji (res) {
@@ -69,6 +71,7 @@ function weatherEmoji (res) {
       $("#date3").text(moment().add(3, 'days').format('L'));
       $("#date4").text(moment().add(4, 'days').format('L'));
       $("#date5").text(moment().add(5, 'days').format('L'));
+      
    
 });
 
@@ -96,7 +99,7 @@ function forecastHumid (arr) {
 function forecastEmoji (arr) {
 
     for(var i = 0; i < arr.length; i++){
-        if(arr[i].main === "Clouds"){
+        if(arr[i].main === "Clouds" || arr[i.main === "Mist"]){
             emojiIDArray[i].text("☁️");
         }
         else if(arr[i].main === "Clear"){
@@ -111,5 +114,11 @@ function forecastEmoji (arr) {
     }
 }
 
+function cityList (str) {
+    var prevCity = $("<li>").text(str);
+    prevCity.attr("class", "list-group-item")
+
+    $(".list-group").prepend(prevCity);
+}
 
 });
