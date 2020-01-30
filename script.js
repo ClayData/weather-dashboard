@@ -56,18 +56,20 @@ $(document).ready(function(){
 
     function weatherEmoji (res) {
         var jumboEmoji = "";
-    
-        if(res === "Clouds" || res === "Mist"){
+        
+        switch (res){
+         case "Clouds":
+         case "Mist":
             jumboEmoji = ("☁️");
-        }
-        else if(res === "Clear"){
+         break;
+        case "Clear":
             jumboEmoji = ("☀️");
-        }
-        else if(res === "Rain"){
-            jumboEmoji = ("☔")
-        }
-        else if(res === "Snow"){
-            jumboEmoji = ("❄️")
+        break;
+        case "Rain":
+            jumboEmoji = ("☔");
+        case "Snow":
+            jumboEmoji = ("❄️");
+        break;
         }
     
         return jumboEmoji;
