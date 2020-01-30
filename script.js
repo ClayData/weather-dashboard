@@ -12,7 +12,7 @@ $(document).ready(function(){
     });
 
     $(document).on("click", "#rewind", function (){
-        console.log("works");
+        
         var newCity = $(this).text();
         firstAjax(newCity);
         secondAjax(newCity)
@@ -39,17 +39,20 @@ $(document).ready(function(){
     
     function forecastEmoji (arr) {
         for(var i = 0; i < arr.length; i++){
-            if(arr[i].main === "Clouds" || arr[i.main === "Mist"]){
+            switch (arr[i].main){
+            case "Clouds":  
+            case "Mist":
                 emojiIDArray[i].text("☁️");
-            }
-            else if(arr[i].main === "Clear"){
+            break;
+            case "Clear":
                 emojiIDArray[i].text("☀️");
-            }
-            else if(arr[i].main === "Rain"){
-                emojiIDArray[i].text("☔")
-            }
-            else if(arr[i].main === "Snow"){
-                emojiIDArray[i].text("❄️")
+            break;
+            case "Rain":
+                emojiIDArray[i].text("☔");
+            break;
+            case "Snow":
+                emojiIDArray[i].text("❄️");
+            break;
             }
         }
     }
