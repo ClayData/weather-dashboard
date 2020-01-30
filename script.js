@@ -7,12 +7,8 @@ $(document).ready(function(){
         var givenCity = $("#city-input").val();
         firstAjax(givenCity)
         secondAjax(givenCity)
-             
-          $("#date1").text(moment().add(1, 'days').format('L'));
-          $("#date2").text(moment().add(2, 'days').format('L'));
-          $("#date3").text(moment().add(3, 'days').format('L'));
-          $("#date4").text(moment().add(4, 'days').format('L'));
-          $("#date5").text(moment().add(5, 'days').format('L'));
+        cardFiller()     
+        cityList(givenCity)
     });
 
     $(document).on("click", "#rewind", function (){
@@ -20,12 +16,7 @@ $(document).ready(function(){
         var newCity = $(this).text();
         firstAjax(newCity);
         secondAjax(newCity)
-  
-        $("#date1").text(moment().add(1, 'days').format('L'));
-        $("#date2").text(moment().add(2, 'days').format('L'));
-        $("#date3").text(moment().add(3, 'days').format('L'));
-        $("#date4").text(moment().add(4, 'days').format('L'));
-        $("#date5").text(moment().add(5, 'days').format('L'));
+        cardFiller()
     })
 
     //Arrays and functions for creating the 5 day forecast
@@ -107,7 +98,9 @@ $(document).ready(function(){
         var resultEmoji = response.weather[0].main;
         $("#jumbo-city").text(str + " " + moment().format('L') + " " + weatherEmoji(resultEmoji));
 
-        cityList(str)
+        
+        
+        
       })
    }
 
@@ -129,6 +122,17 @@ $(document).ready(function(){
       })
    }
     
+
+   function cardFiller () {
+    $("#date1").text(moment().add(1, 'days').format('L'));
+    $("#date2").text(moment().add(2, 'days').format('L'));
+    $("#date3").text(moment().add(3, 'days').format('L'));
+    $("#date4").text(moment().add(4, 'days').format('L'));
+    $("#date5").text(moment().add(5, 'days').format('L'));
+   }
+
 })
+
+    
 
    
