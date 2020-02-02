@@ -1,7 +1,7 @@
 $(document).ready(function(){
-
+    var cityArray = [];
     m = moment().format('L')
-    
+    renderList();
     
     $(".btn").on("click", function(){
         var givenCity = $("#city-input").val();
@@ -79,12 +79,33 @@ $(document).ready(function(){
     }
     
     function cityList (str) {
+        
         var prevCity = $("<li>").text(str);
         prevCity.attr("type", "button")
         prevCity.attr("class", "list-group-item list-group-item-action")
         prevCity.attr("id", "rewind")
     
         $(".list-group").prepend(prevCity);
+        cityArray.push(prevCity.text())
+        localStorage.setItem("cityArray", JSON.stringify(cityArray))
+    }
+
+    function renderList(){
+
+       var storedCities = JSON.parse(localStorage.getItem("cityArray"));
+
+       if(storedCities !== null){
+        
+        for(var i = 0; i < storedCities.length; i++){
+        console.log(storedCities[i])
+        var prevCity = $("<li>").text(storedCities[i]);
+        prevCity.attr("type", "button")
+        prevCity.attr("class", "list-group-item list-group-item-action")
+        prevCity.attr("id", "rewind")
+
+        $(".list-group").prepend(prevCity)
+        }
+       }
     }
 
     function firstAjax (str) {
@@ -101,11 +122,7 @@ $(document).ready(function(){
         $("#jumbo-wind").text("Wind Speed: " + JSON.stringify(response.wind.speed))
 
         var resultEmoji = response.weather[0].main;
-        $("#jumbo-city").text(str + " " + moment().format('L') + " " + weatherEmoji(resultEmoji));
-
-        
-        
-        
+        $("#jumbo-city").text(str + " " + moment().format('L') + " " + weatherEmoji(resultEmoji)); 
       })
    }
 
@@ -135,6 +152,11 @@ $(document).ready(function(){
     $("#date4").text(moment().add(4, 'days').format('L'));
     $("#date5").text(moment().add(5, 'days').format('L'));
    }
+
+   
+       
+       
+   
 
 })
 
