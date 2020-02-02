@@ -97,7 +97,7 @@ $(document).ready(function(){
        if(storedCities !== null){
         
         for(var i = 0; i < storedCities.length; i++){
-        console.log(storedCities[i])
+        
         var prevCity = $("<li>").text(storedCities[i]);
         prevCity.attr("type", "button")
         prevCity.attr("class", "list-group-item list-group-item-action")
@@ -116,14 +116,28 @@ $(document).ready(function(){
         url: dailyURL,
         method: "GET"
       }).then(function(response){
-
+        
         $("#jumbo-temp").text("Temp: " + JSON.stringify(response.main.temp))
         $("#jumbo-humid").text("Humidity: " + JSON.stringify(response.main.humidity))
         $("#jumbo-wind").text("Wind Speed: " + JSON.stringify(response.wind.speed))
-
+        var long = JSON.stringify(response.coord.lon)
+        var lat = JSON.stringify(response.coord.lat)
         var resultEmoji = response.weather[0].main;
         $("#jumbo-city").text(str + " " + moment().format('L') + " " + weatherEmoji(resultEmoji)); 
+        uvAjax(long, lat);
+        
       })
+      
+   }
+
+   function uvAjax(lo, la){
+    var uvURL = "http://api.openweathermap.org/data/2.5/uvi?appid=e9d14d7bd92938f37390ec154c374984&lat=" + la + "&lon=" + lo + ""
+    $.ajax({
+        url: uvURL,
+        method: "GET"
+    }).then(function(response){
+        $("#jumbo-uv").text("UV Index: " + JSON.stringify(response.value))
+    })
    }
 
    function secondAjax (str) {
@@ -143,6 +157,11 @@ $(document).ready(function(){
         forecastEmoji(resultsWeatherArray)
       })
    }
+
+  
+       
+       
+  
     
 
    function cardFiller () {
